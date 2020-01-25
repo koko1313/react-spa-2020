@@ -2,48 +2,49 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
 import Navbar from './components/Navbar';
+import FunctionalComponent from './components/FunctionalComponent';
+
+const Layout = (props) => {
+  return (
+    <>
+      <Navbar />
+      <div className="container mt-5">
+        {props.children}
+      </div>
+    </>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+      {/* <FunctionalComponent count={1} step={2} />
+      <FunctionalComponent count={7} step={1} /> */}
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/" exact>
+      <Switch>
+        <Route path="/" exact>
+          <Layout>
             <Home />
-          </Route>
-          <Route path="/profile" exact>
+          </Layout>
+        </Route>
+        <Route path="/profile" exact>
+          <Layout>
             <Profile />
-          </Route>
-          <Route path="/users" exact>
+          </Layout>
+        </Route>
+        <Route path="/users" exact>
+          <Layout>
             <Users />
-          </Route>
-        </Switch>
-      </div>
+          </Layout>
+        </Route>
+      </Switch>
     </Router>
   );
 }
