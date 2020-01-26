@@ -11,11 +11,15 @@ import Users from './pages/Users';
 import Navbar from './components/Navbar';
 
 // redux
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './redux/index';
 import { Provider } from 'react-redux';
 
-const store = createStore(reducers);
+import thunk from 'redux-thunk';
+
+// може да подаваме middlewares, които да обработят dispatch-натите данни, преди да отидат в reducer-а
+// npm install redux-thunk е такъв middleware
+const store = createStore(reducers, applyMiddleware(thunk));
 
 const Layout = (props) => {
   return (

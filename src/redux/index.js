@@ -10,4 +10,13 @@ const counter = function(count = 1, action) {
     }
 }
 
-export default combineReducers({ counter });
+const movies = function(movies = [], action) {
+    switch(action.type) {
+        case "FETCHED_MOVIES": {
+            return [...action.payload]; // създава нов масив от вече съществуващия масив
+        }
+        default: return movies;
+    }
+}
+
+export default combineReducers({ counter, movies });
