@@ -26,7 +26,7 @@ class Users extends React.Component {
     render() {
         return <>
             <div>
-                <h1>Users Page</h1>
+                <h1>{this.props.title}</h1>
 
                 <ul className="list-group">
                     {this.renderMovies()}
@@ -55,7 +55,7 @@ function getGlobalMovies() {
     }
 }
 
-const mapStateToProps = state => ({ movies: state.movies, counter: state.counter })
+const mapStateToProps = state => ({ movies: state.movies, counter: state.counter, title: state.title })
 
 const mapStateToDispatch = dispatch => {
     return {
