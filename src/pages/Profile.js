@@ -1,17 +1,26 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import setActionCount from '../redux/actions/counter';
 
-class Profile extends React.Component {
+// функционален компонент
+const Profile = (props) => {
 
-    render() {
-        return <div>
-            <h1>Profile Page</h1>
-            <p>Global count: {this.props.counter}</p>
-        </div>
-    }
+    // използване на useSelector, вместо connect
+    // това е еквивалента на mapStateToProps
+    const counter = useSelector(state => state.counter);
 
+    // dispatch във functional component
+    const dispatch = useDispatch();
+
+    const setCounter = (count) => dispatch(setActionCount(20));
+
+    return  <div>
+        <h1>Profile Page</h1>
+        <p>Global count: {counter}</p>
+        <button className="btn btn-warning" onClick={() => setCounter(20)}>Set glabal counter</button>
+    </div>
 }
 
 // направо си подаваме функцията вътре (анонимна функция), вместо да я пишем отвън
-export default connect(state => ({ counter: state.counter }))(Profile);
+export default Profile;

@@ -3,6 +3,7 @@ import QuantityInput from '../components/QuantityInput';
 
 //redux
 import { connect } from 'react-redux';
+import setActionCount from '../redux/actions/counter';
 
 class Home extends React.Component {
 
@@ -88,14 +89,6 @@ class Home extends React.Component {
 }
 
 
-const setActionCount = (count) => {
-    return {
-        type: "INCREMENT_COUNT",
-        payload: count,
-    };
-}
-
-
 // функция, даваща ни достъп до целия state на нашия App
 const mapStateToProps = (state) => {
     return {
@@ -112,7 +105,6 @@ const mapStateToDispatch = (dispatch) => {
 
 // connect(null, null) - приема 2 функции и връща функция, която приема компонент (нашия компонент - Home)
 export default connect(mapStateToProps, mapStateToDispatch)(Home);
-
 
 
 
