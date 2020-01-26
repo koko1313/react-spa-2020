@@ -1,6 +1,9 @@
 import React from 'react';
 import QuantityInput from '../components/QuantityInput';
 
+//redux
+import { connect } from 'react-redux';
+
 class Home extends React.Component {
 
     constructor(props) {
@@ -18,6 +21,9 @@ class Home extends React.Component {
                 },
             ],
         }
+
+        console.log(this.props.counter);
+        console.log(this.props.setCounter)
     }
 
     getQuantityInputs = () => {
@@ -49,6 +55,10 @@ class Home extends React.Component {
         return inputs;
     }
 
+    changeGlobalCount =() => {
+        this.props.setCounter(10);
+    }
+
     render() {
         return <div className="container">
             <div className="row">
@@ -66,10 +76,55 @@ class Home extends React.Component {
                         {this.getListItems()}
                     </ul>
                 </div>
+                <div className="col-md">
+                    <ul className="list-group">
+                        <button className="btn btn-danger" onClick={this.changeGlobalCount}>Change global count</button>
+                    </ul>
+                </div>
             </div>
         </div>
     }
 
 }
 
-export default Home;
+
+const setActionCount = (count) => {
+    return {
+        type: "INCREMENT_COUNT",
+        payload: count,
+    };
+}
+
+
+// функция, даваща ни достъп до целия state на нашия App
+const mapStateToProps = (state) => {
+    return {
+        counter: state.counter, // state.counter - това е функцията от redux/index
+    };
+}
+
+// тази функция закачва функция setCounter към props
+const mapStateToDispatch = (dispatch) => {
+    return {
+        setCounter: count => dispatch(setActionCount(count)), // lambda expression функция, все едно setCounter(count) { dispatch... }
+    };
+}
+
+// connect(null, null) - приема 2 функции и връща функция, която приема компонент (нашия компонент - Home)
+export default connect(mapStateToProps, mapStateToDispatch)(Home);
+
+
+
+
+// пример за функция, която връща функция
+// const x = function(y) {
+//     return function(z) {
+//         return y + z;
+//     }
+// }
+
+// const res = x(3);
+// res(4); // 7
+
+// // или
+// const res = x(3)(4);
