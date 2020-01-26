@@ -17,6 +17,12 @@ import { Provider } from 'react-redux';
 
 import thunk from 'redux-thunk';
 
+// ContextAPI
+import AppContext from './context/ApplicationContext';
+
+import ContextConsumer from './components/ContextConsumer';
+
+
 // може да подаваме middlewares, които да обработят dispatch-натите данни, преди да отидат в reducer-а
 // npm install redux-thunk е такъв middleware
 const store = createStore(reducers, applyMiddleware(thunk));
@@ -34,30 +40,36 @@ const Layout = (props) => {
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        {/* <FunctionalComponent count={1} step={2} />
-        <FunctionalComponent count={7} step={1} /> */}
+    <>
+      <Provider store={store}>
+        <Router>
+          {/* <FunctionalComponent count={1} step={2} />
+          <FunctionalComponent count={7} step={1} /> */}
 
-        <Switch>
-          <Route path="/" exact>
-            <Layout>
-              <Home />
-            </Layout>
-          </Route>
-          <Route path="/profile" exact>
-            <Layout>
-              <Profile />
-            </Layout>
-          </Route>
-          <Route path="/users" exact>
-            <Layout>
-              <Users />
-            </Layout>
-          </Route>
-        </Switch>
-      </Router>
-    </Provider>
+          <Switch>
+            <Route path="/" exact>
+              <Layout>
+                <Home />
+              </Layout>
+            </Route>
+            <Route path="/profile" exact>
+              <Layout>
+                <Profile />
+              </Layout>
+            </Route>
+            <Route path="/users" exact>
+              <Layout>
+                <Users />
+              </Layout>
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>
+
+      <AppContext.ApplicationContextProvider>
+        <ContextConsumer />
+      </AppContext.ApplicationContextProvider>
+    </>
   );
 }
 
